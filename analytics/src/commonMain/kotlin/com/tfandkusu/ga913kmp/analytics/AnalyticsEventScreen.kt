@@ -1,4 +1,4 @@
-package com.tfankusu.ga913kmp.analytics
+package com.tfandkusu.ga913kmp.analytics
 
 /**
  * 画面遷移イベントクラス群

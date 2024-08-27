@@ -31,7 +31,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.tfankusu.ga913kmp"
+    namespace = "com.tfandkusu.ga913kmp"
     compileSdk = 34
     defaultConfig {
         minSdk = 28
