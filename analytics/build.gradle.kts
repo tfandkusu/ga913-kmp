@@ -6,14 +6,7 @@ plugins {
 }
 
 kotlin {
-    androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "1.8"
-            }
-        }
-    }
-    
+    androidTarget()
     val xcf = XCFramework()
     listOf(
         iosX64(),
@@ -38,13 +31,9 @@ kotlin {
 }
 
 android {
-    namespace = "com.tfankusu.ga913kmp"
+    namespace = "com.tfandkusu.ga913kmp"
     compileSdk = 34
     defaultConfig {
         minSdk = 28
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
