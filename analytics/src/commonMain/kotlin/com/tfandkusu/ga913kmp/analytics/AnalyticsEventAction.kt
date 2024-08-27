@@ -30,10 +30,12 @@ sealed class AnalyticsEventAction(
              */
             val favoritesOnly: Boolean,
         ) : AnalyticsEventAction(
-            "LandmarkListFavoritesOnlySwitch", mapOf(
-                "favorites_only" to favoritesOnly,
-            ), false
-        )
+                "LandmarkListFavoritesOnlySwitch",
+                mapOf(
+                    "favorites_only" to favoritesOnly,
+                ),
+                false,
+            )
     }
 
     /**
@@ -53,11 +55,13 @@ sealed class AnalyticsEventAction(
              */
             val name: String,
         ) : AnalyticsEventAction(
-            "LandmarkDetailFavoriteOn", mapOf(
-                "id" to id,
-                "name" to name,
-            ), true
-        )
+                "LandmarkDetailFavoriteOn",
+                mapOf(
+                    "id" to id,
+                    "name" to name,
+                ),
+                true,
+            )
 
         /**
          * いいねを解除する
@@ -72,11 +76,13 @@ sealed class AnalyticsEventAction(
              */
             val name: String,
         ) : AnalyticsEventAction(
-            "LandmarkDetailFavoriteOff", mapOf(
-                "id" to id,
-                "name" to name,
-            ), false
-        )
+                "LandmarkDetailFavoriteOff",
+                mapOf(
+                    "id" to id,
+                    "name" to name,
+                ),
+                false,
+            )
     }
 
     /**
