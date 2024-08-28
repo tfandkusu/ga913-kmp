@@ -3,7 +3,7 @@ package com.tfandkusu.ga913kmp.analytics
 /**
  * 画面内操作イベントクラス群
  */
-sealed class AnalyticsEventAction(
+sealed class KmpAnalyticsEventAction(
     /**
      * Analytics イベント名
      */
@@ -29,7 +29,7 @@ sealed class AnalyticsEventAction(
              * スイッチの ON/OFF
              */
             val favoritesOnly: Boolean,
-        ) : AnalyticsEventAction(
+        ) : KmpAnalyticsEventAction(
                 "LandmarkListFavoritesOnlySwitch",
                 mapOf(
                     "favorites_only" to favoritesOnly,
@@ -54,7 +54,7 @@ sealed class AnalyticsEventAction(
              * ランドマークの名前
              */
             val name: String,
-        ) : AnalyticsEventAction(
+        ) : KmpAnalyticsEventAction(
                 "LandmarkDetailFavoriteOn",
                 mapOf(
                     "id" to id,
@@ -75,7 +75,7 @@ sealed class AnalyticsEventAction(
              * ランドマークの名前
              */
             val name: String,
-        ) : AnalyticsEventAction(
+        ) : KmpAnalyticsEventAction(
                 "LandmarkDetailFavoriteOff",
                 mapOf(
                     "id" to id,
@@ -97,6 +97,6 @@ sealed class AnalyticsEventAction(
         /**
          * プライバシーポリシーを表示する
          */
-        object PrivacyPolicy : AnalyticsEventAction("InfoPrivacyPolicy", emptyMap(), false)
+        object PrivacyPolicy : KmpAnalyticsEventAction("InfoPrivacyPolicy", emptyMap(), false)
     }
 }

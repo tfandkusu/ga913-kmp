@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ga913-kmp"
-include(":analytics")
+rootProject.name = "ga913-kmp-project"
+include(":ga913kmp")

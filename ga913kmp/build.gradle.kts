@@ -15,7 +15,7 @@ kotlin {
         iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
-            baseName = "analytics"
+            baseName = "ga913kmp"
             xcf.add(this)
             isStatic = true
         }
