@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.ktlint)
+    id("maven-publish")
 }
 
 kotlin {
@@ -40,5 +41,26 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/tfandkusu/ga913-kmp")
+            credentials {
+                username = "tfandkusu"
+                password = System.getenv("GITHUB_PACKAGES_TOKEN")
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "com.tfandkusu"
+            artifactId = "ga913kmp"
+            version = "0.0.3"
+            from(components["kotlin"])
+        }
     }
 }
