@@ -45,16 +45,6 @@ android {
 }
 
 publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/tfandkusu/ga913-kmp")
-            credentials {
-                username = "tfandkusu"
-                password = System.getenv("GITHUB_PACKAGES_TOKEN")
-            }
-        }
-    }
     publications {
         create<MavenPublication>("maven") {
             groupId = "com.tfandkusu"
