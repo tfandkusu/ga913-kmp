@@ -4,7 +4,8 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.ktlint)
-    id("maven-publish")
+    `maven-publish`
+    signing
 }
 
 kotlin {
@@ -53,4 +54,13 @@ publishing {
             from(components["kotlin"])
         }
     }
+}
+
+signing {
+    useInMemoryPgpKeys(
+        System.getenv("SIGNING_KEY_ID"),
+        System.getenv("SIGNING_SECRET_KEY"),
+        System.getenv("SIGNING_PASSWORD"),
+    )
+    sign(publishing.publications["maven"])
 }
