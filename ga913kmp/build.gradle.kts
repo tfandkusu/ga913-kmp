@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.ktlint)
+    `maven-publish`
 }
 
 kotlin {
@@ -26,6 +27,17 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "com.tfandkusu"
+            artifactId = "ga913kmp"
+            version = "0.0.5"
+            from(components["kotlin"])
         }
     }
 }
