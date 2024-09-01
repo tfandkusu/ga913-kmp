@@ -36,7 +36,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "com.tfandkusu"
             artifactId = "ga913kmp"
-            version = "0.0.5"
+            version = "0.0.6"
             from(components["kotlin"])
         }
     }
