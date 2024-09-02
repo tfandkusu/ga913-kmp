@@ -5,11 +5,13 @@
 アプリ開発者は Kotlin で [Google Analytics for Firebase](https://firebase.google.com/docs/analytics) のイベントの仕様を定義します。
 本リポジトリは Kotlin Multiplatform ライブラリなので iOS / Android アプリから取り込むことが出来ます。
 
-# iOS 向け
+## ライブラリの使用方法
+
+### iOS 向け
 
 [Swift Package Manager](https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app) で、このリポジトリを追加します。
 
-# Android 向け
+### Android 向け
 
 [JitPack](https://jitpack.io/) を使用しています。
 
