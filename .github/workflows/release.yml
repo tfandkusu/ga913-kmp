@@ -32,11 +32,11 @@ jobs:
       - name: checksum を取得
         run: echo "checksum=$(swift package compute-checksum ga913kmp.xcframework.zip)" >> $GITHUB_ENV
         working-directory: ga913kmp/build/XCFrameworks/release/
-      - name: Package.swift を作る
-        run: 'npx ejs Package.swift.ejs -i '{"version": "${{ env.version }}", "checksum": "${{ env.checksum }}"}' -o Package.swift'
-      - name: コミットを積む
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add Package.swift
-          git commit -m "Package.swift を更新"
+#      - name: Package.swift を作る
+#        run: 'npx ejs Package.swift.ejs -i '{"version": "${{ env.version }}", "checksum": "${{ env.checksum }}"}' -o Package.swift'
+#      - name: コミットを積む
+#        run: |
+#          git config user.name "github-actions"
+#          git config user.email "github-actions@github.com"
+#          git add Package.swift
+#          git commit -m "Package.swift を更新"
