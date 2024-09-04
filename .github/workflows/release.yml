@@ -34,4 +34,12 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add Package.swift
-          git commit -m "Package.swift を更新"
+          git commit -m "[skip ci]Package.swift を更新"
+          git push origin HEAD
+      - name: VERSION ファイルからバージョンを取得
+        run: echo cat VERSION >> $GITHUB_ENV
+      - name: タグを打つ。タグ名は VERSION を使う。
+        run: git tag -a ${{ env.VERSION }} -m "${{ env.VERSION }}"
+      - name: リリースを作る
+        run: |
+          gh release create ${{ env.VERSION }} -t ${{ env.VERSION }} -F ga913kmp/build/XCFrameworks/release/ga913kmp.xcframework.zip
