@@ -3,11 +3,6 @@ on:
   push:
     branches:
       - release
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
 jobs:
   release:
     runs-on: macos-latest
