@@ -1,0 +1,46 @@
+name: release
+on:
+  push:
+    branches:
+      - release
+jobs:
+  release:
+    runs-on: macos-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: gradle/gradle-build-action@v2
+      - name: XCFramework を作る
+        run: ./gradlew assembleXCFramework
+      - name: ZIP ファイルを作る
+        run: zip -r ga913kmp.xcframework.zip ga913kmp.xcframework/
+        working-directory: ga913kmp/build/XCFrameworks/release/
+      - name: Package.swift を作る
+        run: ./make_package_swift.sh
+      - name: コミットを積む
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add Package.swift
+          git commit -m "[skip ci]Package.swift を更新"
+          git push origin HEAD
+      - name: VERSION ファイルからバージョンを取得
+        run: echo version=`cat VERSION` >> $GITHUB_ENV
+      - name: タグを打つ
+        run: |
+          git tag -a ${{ env.version }} -m "${{ env.version }}"
+          git push origin ${{ env.version }}
+      - name: リリースを作る
+        run: |
+          gh release create ${{ env.version }} -t ${{ env.version }} ga913kmp/build/XCFrameworks/release/ga913kmp.xcframework.zip
+        env:
+          GH_TOKEN: ${{ github.token }}
