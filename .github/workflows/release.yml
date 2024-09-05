@@ -46,6 +46,6 @@ jobs:
           git push origin ${{ env.version }}
       - name: リリースを作る
         run: |
-          gh release create ${{ env.version }} -t ${{ env.version }} -F ga913kmp/build/XCFrameworks/release/ga913kmp.xcframework.zip
+          gh release create ${{ env.version }} -t ${{ env.version }} ga913kmp/build/XCFrameworks/release/ga913kmp.xcframework.zip
         env:
           GH_TOKEN: ${{ github.token }}
