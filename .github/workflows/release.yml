@@ -39,7 +39,7 @@ jobs:
           git commit -m "[skip ci]Package.swift を更新"
           git push origin HEAD
       - name: VERSION ファイルからバージョンを取得
-        run: echo cat VERSION >> $GITHUB_ENV
+        run: cat VERSION >> $GITHUB_ENV
       - name: タグを打つ。タグ名は VERSION を使う。
         run: git tag -a ${{ env.VERSION }} -m "${{ env.VERSION }}"
       - name: リリースを作る
