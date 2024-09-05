@@ -41,7 +41,11 @@ jobs:
       - name: VERSION ファイルからバージョンを取得
         run: echo version=`cat VERSION` >> $GITHUB_ENV
       - name: タグを打つ
-        run: git tag -a ${{ env.version }} -m "${{ env.version }}"
+        run: |
+          git tag -a ${{ env.version }} -m "${{ env.version }}"
+          git push origin ${{ env.version }}
       - name: リリースを作る
         run: |
           gh release create ${{ env.version }} -t ${{ env.version }} -F ga913kmp/build/XCFrameworks/release/ga913kmp.xcframework.zip
+        env:
+          GH_TOKEN: ${{ github.token }}
