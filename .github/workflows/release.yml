@@ -39,9 +39,9 @@ jobs:
           git commit -m "[skip ci]Package.swift を更新"
           git push origin HEAD
       - name: VERSION ファイルからバージョンを取得
-        run: cat VERSION >> $GITHUB_ENV
-      - name: タグを打つ。タグ名は VERSION を使う。
-        run: git tag -a ${{ env.VERSION }} -m "${{ env.VERSION }}"
+        run: echo version=`cat VERSION` >> $GITHUB_ENV
+      - name: タグを打つ
+        run: git tag -a ${{ env.version }} -m "${{ env.version }}"
       - name: リリースを作る
         run: |
-          gh release create ${{ env.VERSION }} -t ${{ env.VERSION }} -F ga913kmp/build/XCFrameworks/release/ga913kmp.xcframework.zip
+          gh release create ${{ env.version }} -t ${{ env.version }} -F ga913kmp/build/XCFrameworks/release/ga913kmp.xcframework.zip
