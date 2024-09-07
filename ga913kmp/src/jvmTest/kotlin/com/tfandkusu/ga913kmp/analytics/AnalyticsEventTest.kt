@@ -36,6 +36,15 @@ class AnalyticsEventTest {
         }
     }
 
+    @Test
+    fun checkEventCount() {
+        val events = createEvents()
+        val eventCount = events.count { it.isConversionEvent }
+        if (eventCount > 500) {
+            throw IllegalArgumentException("イベント種類数が500を超えています。")
+        }
+    }
+
     private fun createEvents(): List<Event> {
         return createScreenInstances().map { screen ->
             Event(
