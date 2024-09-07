@@ -45,6 +45,18 @@ class AnalyticsEventTest {
         }
     }
 
+    @Test
+    fun checkDuplicateEventName() {
+        val events = createEvents()
+        val eventNames = mutableSetOf<String>()
+        events.forEach {
+            if (eventNames.contains(it.eventName)) {
+                throw IllegalArgumentException("イベント名 ${it.eventName} が重複しています。")
+            }
+            eventNames.add(it.eventName)
+        }
+    }
+
     private fun createEvents(): List<Event> {
         return createScreenInstances().map { screen ->
             Event(
