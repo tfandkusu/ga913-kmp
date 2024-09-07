@@ -24,4 +24,4 @@ jobs:
       - name: フォーマットチェック
         run: ./gradlew ktlintCheck
       - name: イベント仕様チェック
-        run: ./gradlew test
+        run: ./gradlew jvmTest
