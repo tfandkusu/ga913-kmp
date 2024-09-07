@@ -20,31 +20,49 @@ class AnalyticsEventTest {
 
     @Test
     fun checkEventNameLength() {
-        val events = makeEvents()
+        val events = createEvents()
         events.forEach {
             assertTrue(it.eventName.length <= 40, "${it.eventName} は40文字を超えています。")
         }
     }
 
-    private fun makeEvents(): List<Event> {
-        return KmpAnalyticsEventScreen::class.sealedSubclasses.map {
-            val screen =
-                it.objectInstance
-                    ?: throw RuntimeException("画面遷移イベントクラス作成に失敗しました。")
+    @Test
+    fun checkEventParameterKeyLength() {
+        val actions = createActionInstances()
+        actions.flatMap { action ->
+            action.eventParameters.keys
+        }.forEach { key ->
+            assertTrue(key.length <= 40, "イベントパラメータ $key は40文字を超えています。")
+        }
+    }
+
+    private fun createEvents(): List<Event> {
+        return createScreenInstances().map { screen ->
             Event(
                 eventName = screen.eventName,
                 isConversionEvent = screen.isConversionEvent,
             )
         } +
-            KmpAnalyticsEventAction::class.sealedSubclasses.map {
-                val action =
-                    it.objectInstance ?: createInstance(it)
-                        ?: throw RuntimeException("画面内操作イベントクラス作成に失敗しました。")
+            createActionInstances().map { action ->
                 Event(
                     eventName = action.eventName,
                     isConversionEvent = action.isConversionEvent,
                 )
             }
+    }
+
+    private fun createScreenInstances(): List<KmpAnalyticsEventScreen> {
+        return KmpAnalyticsEventScreen::class.sealedSubclasses.map {
+            it.objectInstance
+                ?: throw RuntimeException("画面遷移イベントクラス作成に失敗しました。")
+        }
+    }
+
+    private fun createActionInstances(): List<KmpAnalyticsEventAction> {
+        return KmpAnalyticsEventAction::class.sealedSubclasses.map {
+            it.objectInstance ?: createInstance(it)
+                ?: throw RuntimeException("画面内操作イベントクラス作成に失敗しました。")
+        }
     }
 
     private fun createInstance(klass: KClass<out KmpAnalyticsEventAction>): KmpAnalyticsEventAction? {
