@@ -23,3 +23,5 @@ jobs:
       - uses: gradle/gradle-build-action@v2
       - name: フォーマットチェック
         run: ./gradlew ktlintCheck
+      - name: イベント仕様の検証
+        run: ./gradlew jvmTest
