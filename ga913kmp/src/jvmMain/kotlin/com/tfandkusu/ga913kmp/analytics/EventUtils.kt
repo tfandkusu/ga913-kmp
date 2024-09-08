@@ -23,7 +23,7 @@ fun createScreenInstances(): List<KmpAnalyticsEventScreen> {
     return KmpAnalyticsEventScreen::class.sealedSubclasses.map {
         it.objectInstance
             ?: throw RuntimeException("画面遷移イベントクラス作成に失敗しました。")
-    }
+    }.sortedBy { it.order }
 }
 
 fun createActionInstances(): List<KmpAnalyticsEventAction> {
