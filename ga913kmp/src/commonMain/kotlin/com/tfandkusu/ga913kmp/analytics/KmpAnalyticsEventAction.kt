@@ -5,9 +5,13 @@ package com.tfandkusu.ga913kmp.analytics
  */
 sealed class KmpAnalyticsEventAction(
     /**
-     * 説明文
+     * Analytics イベントの説明文
      */
     val description: String,
+    /**
+     * Analytics イベントパラメータの説明文
+     */
+    val eventParameterDescriptions: Map<String, String>,
     /**
      * Analytics イベント名
      */
@@ -31,12 +35,13 @@ sealed class KmpAnalyticsEventAction(
         screenName = "LandmarkList",
     ) {
         data class FavoritesOnlySwitch(
-            /**
-             * スイッチの ON/OFF
-             */
             val favoritesOnly: Boolean,
         ) : KmpAnalyticsEventAction(
                 description = "いいねを付けたランドマークのみを表示するスイッチ",
+                eventParameterDescriptions =
+                    mapOf(
+                        "favorites_only" to "スイッチの ON/OFF",
+                    ),
                 eventName = screenName + "FavoritesOnlySwitch",
                 eventParameters =
                     mapOf(
@@ -46,18 +51,18 @@ sealed class KmpAnalyticsEventAction(
             )
     }
 
-    data object LandmarkDetail : Screen(description = "ランドマーク詳細画面", screenName = "LandmarkDetail") {
+    data object LandmarkDetail :
+        Screen(description = "ランドマーク詳細画面", screenName = "LandmarkDetail") {
         data class FavoriteOn(
-            /**
-             * ランドマークの ID
-             */
             val id: Long,
-            /**
-             * ランドマークの名前
-             */
             val name: String,
         ) : KmpAnalyticsEventAction(
                 description = "いいねを付ける",
+                eventParameterDescriptions =
+                    mapOf(
+                        "id" to "ランドマークの ID",
+                        "name" to "ランドマークの名前",
+                    ),
                 eventName = screenName + "FavoriteOn",
                 eventParameters =
                     mapOf(
@@ -68,16 +73,15 @@ sealed class KmpAnalyticsEventAction(
             )
 
         data class FavoriteOff(
-            /**
-             * ランドマークの ID
-             */
             val id: Long,
-            /**
-             * ランドマークの名前
-             */
             val name: String,
         ) : KmpAnalyticsEventAction(
                 description = "いいねを解除する",
+                eventParameterDescriptions =
+                    mapOf(
+                        "id" to "ランドマークの ID",
+                        "name" to "ランドマークの名前",
+                    ),
                 eventName = "LandmarkDetailFavoriteOff",
                 eventParameters =
                     mapOf(
@@ -94,6 +98,7 @@ sealed class KmpAnalyticsEventAction(
         data object PrivacyPolicy : KmpAnalyticsEventAction(
             description = "プライバシーポリシーを表示する",
             eventName = screenName + "PrivacyPolicy",
+            eventParameterDescriptions = emptyMap(),
             eventParameters = emptyMap(),
             isConversionEvent = false,
         )

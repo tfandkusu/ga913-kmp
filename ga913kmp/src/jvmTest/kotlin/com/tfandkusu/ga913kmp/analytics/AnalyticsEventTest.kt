@@ -4,6 +4,7 @@ import kotlin.reflect.KClass
 import kotlin.reflect.KClassifier
 import kotlin.reflect.full.primaryConstructor
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class AnalyticsEventTest {
@@ -54,6 +55,18 @@ class AnalyticsEventTest {
                 throw IllegalArgumentException("イベント名 ${it.eventName} が重複しています。")
             }
             eventNames.add(it.eventName)
+        }
+    }
+
+    @Test
+    fun checkEventParameterDescriptions() {
+        val actions = createActionInstances()
+        actions.forEach { action ->
+            assertEquals(
+                action.eventParameterDescriptions.keys,
+                action.eventParameters.keys,
+                "イベントパラメータと説明文が一致しません",
+            )
         }
     }
 
