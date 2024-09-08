@@ -7,6 +7,9 @@ object MarkdownGenerator {
         generateScreensMarkdown(
             createScreenInstances(),
         )
+        generateActionsMarkdown(
+            createScreensInActions(),
+        )
     }
 
     private fun generateScreensMarkdown(screens: List<KmpAnalyticsEventScreen>) {
@@ -18,6 +21,17 @@ object MarkdownGenerator {
             builder.append("| ${screen.description} | ${screen.eventName} | ${screen.isConversionEvent.toCircle()} |\n")
         }
         File("screens.md").writeText(builder.toString())
+    }
+
+    private fun generateActionsMarkdown(screensInActions: List<KmpAnalyticsEventAction.Screen>) {
+        val builder = StringBuilder()
+        builder.append("# 画面内操作イベント一覧\n\n")
+        for (screen in screensInActions) {
+            builder.append("## ${screen.description}\n\n")
+            // builder.append(generateActionsMarkdown(screen))
+            builder.append("\n")
+        }
+        File("actions.md").writeText(builder.toString())
     }
 
     private fun Boolean.toCircle(): String =

@@ -33,6 +33,15 @@ fun createActionInstances(): List<KmpAnalyticsEventAction> {
     }
 }
 
+fun createScreensInActions(): List<KmpAnalyticsEventAction.Screen> {
+    return KmpAnalyticsEventAction.Screen::class.sealedSubclasses.map {
+        it.objectInstance
+            ?: throw RuntimeException(
+                "KmpAnalyticsEventAction.Screen を継承したクラスが object で実装されていません。",
+            )
+    }
+}
+
 private fun createInstance(klass: KClass<out KmpAnalyticsEventAction>): KmpAnalyticsEventAction? {
     val constructor = klass.primaryConstructor
     return if (constructor != null) {

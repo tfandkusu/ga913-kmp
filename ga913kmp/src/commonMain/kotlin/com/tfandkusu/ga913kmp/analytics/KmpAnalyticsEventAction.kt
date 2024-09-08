@@ -92,8 +92,6 @@ sealed class KmpAnalyticsEventAction(
             )
     }
 
-    data object Setting : Screen(description = "設定画面", screenName = "Setting")
-
     data object Info : Screen(description = "情報画面", screenName = "Info") {
         data object PrivacyPolicy : KmpAnalyticsEventAction(
             description = "プライバシーポリシーを表示する",
