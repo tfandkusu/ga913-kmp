@@ -25,3 +25,5 @@ jobs:
         run: ./gradlew ktlintCheck
       - name: イベント仕様の検証
         run: ./gradlew jvmTest
+      - name: ドキュメントの生成
+        run: ./gradlew run
