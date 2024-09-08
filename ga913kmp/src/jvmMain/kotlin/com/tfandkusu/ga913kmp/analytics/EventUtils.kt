@@ -38,7 +38,7 @@ fun createScreensInActions(): List<KmpAnalyticsEventAction.Screen> {
             ?: throw RuntimeException(
                 "KmpAnalyticsEventAction.Screen を継承したクラスが object で実装されていません。",
             )
-    }
+    }.sortedBy { it.order }
 }
 
 fun createInstance(klass: KClass<out KmpAnalyticsEventAction>): KmpAnalyticsEventAction {

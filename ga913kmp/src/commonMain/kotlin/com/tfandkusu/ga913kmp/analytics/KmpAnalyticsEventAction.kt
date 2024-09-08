@@ -5,6 +5,10 @@ package com.tfandkusu.ga913kmp.analytics
  */
 sealed class KmpAnalyticsEventAction(
     /**
+     * イベント仕様書上の順番
+     */
+    val order: Int,
+    /**
      * Analytics イベントの説明文
      */
     val description: String,
@@ -26,17 +30,29 @@ sealed class KmpAnalyticsEventAction(
     val isConversionEvent: Boolean,
 ) {
     sealed class Screen(
+        /**
+         * イベント仕様書上の順番
+         */
+        val order: Int,
+        /**
+         * イベント仕様書に掲載する画面名
+         */
         val description: String,
+        /**
+         * 画面の名前をベースにした Analytics イベント名のプレフィックス
+         */
         val screenName: String,
     )
 
     data object LandmarkList : Screen(
+        order = 1,
         description = "ランドマーク一覧画面",
         screenName = "LandmarkList",
     ) {
         data class FavoritesOnlySwitch(
             val favoritesOnly: Boolean,
         ) : KmpAnalyticsEventAction(
+                order = 1,
                 description = "いいねを付けたランドマークのみを表示するスイッチ",
                 eventParameterDescriptions =
                     mapOf(
@@ -52,11 +68,16 @@ sealed class KmpAnalyticsEventAction(
     }
 
     data object LandmarkDetail :
-        Screen(description = "ランドマーク詳細画面", screenName = "LandmarkDetail") {
+        Screen(
+            order = 2,
+            description = "ランドマーク詳細画面",
+            screenName = "LandmarkDetail",
+        ) {
         data class FavoriteOn(
             val id: Long,
             val name: String,
         ) : KmpAnalyticsEventAction(
+                order = 1,
                 description = "いいねを付ける",
                 eventParameterDescriptions =
                     mapOf(
@@ -76,6 +97,7 @@ sealed class KmpAnalyticsEventAction(
             val id: Long,
             val name: String,
         ) : KmpAnalyticsEventAction(
+                order = 2,
                 description = "いいねを解除する",
                 eventParameterDescriptions =
                     mapOf(
@@ -92,8 +114,13 @@ sealed class KmpAnalyticsEventAction(
             )
     }
 
-    data object Info : Screen(description = "情報画面", screenName = "Info") {
+    data object Info : Screen(
+        order = 3,
+        description = "情報画面",
+        screenName = "Info",
+    ) {
         data object PrivacyPolicy : KmpAnalyticsEventAction(
+            order = 1,
             description = "プライバシーポリシーを表示する",
             eventName = screenName + "PrivacyPolicy",
             eventParameterDescriptions = emptyMap(),
