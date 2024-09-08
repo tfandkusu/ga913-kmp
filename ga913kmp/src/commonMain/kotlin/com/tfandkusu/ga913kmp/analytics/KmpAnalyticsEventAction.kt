@@ -5,6 +5,10 @@ package com.tfandkusu.ga913kmp.analytics
  */
 sealed class KmpAnalyticsEventAction(
     /**
+     * 説明文
+     */
+    val description: String,
+    /**
      * Analytics イベント名
      */
     val eventName: String,
@@ -21,20 +25,19 @@ sealed class KmpAnalyticsEventAction(
      * ランドマーク一覧画面
      */
     object LandmarkList {
-        /**
-         * いいねを付けたランドマークのみを表示するスイッチ
-         */
         data class FavoritesOnlySwitch(
             /**
              * スイッチの ON/OFF
              */
             val favoritesOnly: Boolean,
         ) : KmpAnalyticsEventAction(
-                "LandmarkListFavoritesOnlySwitch",
-                mapOf(
-                    "favorites_only" to favoritesOnly,
-                ),
-                false,
+                description = "いいねを付けたランドマークのみを表示するスイッチ",
+                eventName = "LandmarkListFavoritesOnlySwitch",
+                eventParameters =
+                    mapOf(
+                        "favorites_only" to favoritesOnly,
+                    ),
+                isConversionEvent = false,
             )
     }
 
@@ -42,9 +45,6 @@ sealed class KmpAnalyticsEventAction(
      * ランドマーク詳細画面
      */
     object LandmarkDetail {
-        /**
-         * いいねを付ける
-         */
         data class FavoriteOn(
             /**
              * ランドマークの ID
@@ -55,17 +55,16 @@ sealed class KmpAnalyticsEventAction(
              */
             val name: String,
         ) : KmpAnalyticsEventAction(
-                "LandmarkDetailFavoriteOn",
-                mapOf(
-                    "id" to id,
-                    "name" to name,
-                ),
-                true,
+                description = "いいねを付ける",
+                eventName = "LandmarkDetailFavoriteOn",
+                eventParameters =
+                    mapOf(
+                        "id" to id,
+                        "name" to name,
+                    ),
+                isConversionEvent = true,
             )
 
-        /**
-         * いいねを解除する
-         */
         data class FavoriteOff(
             /**
              * ランドマークの ID
@@ -76,12 +75,14 @@ sealed class KmpAnalyticsEventAction(
              */
             val name: String,
         ) : KmpAnalyticsEventAction(
-                "LandmarkDetailFavoriteOff",
-                mapOf(
-                    "id" to id,
-                    "name" to name,
-                ),
-                false,
+                description = "いいねを解除する",
+                eventName = "LandmarkDetailFavoriteOff",
+                eventParameters =
+                    mapOf(
+                        "id" to id,
+                        "name" to name,
+                    ),
+                isConversionEvent = false,
             )
     }
 
@@ -94,9 +95,11 @@ sealed class KmpAnalyticsEventAction(
      * 情報画面
      */
     object Info {
-        /**
-         * プライバシーポリシーを表示する
-         */
-        object PrivacyPolicy : KmpAnalyticsEventAction("InfoPrivacyPolicy", emptyMap(), false)
+        data object PrivacyPolicy : KmpAnalyticsEventAction(
+            description = "プライバシーポリシーを表示する",
+            eventName = "InfoPrivacyPolicy",
+            eventParameters = emptyMap(),
+            isConversionEvent = false,
+        )
     }
 }
