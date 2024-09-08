@@ -27,9 +27,11 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
         }
+        jvmMain.dependencies {
+            implementation(libs.kotlin.reflect)
+        }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-            implementation(libs.kotlin.reflect)
         }
         jvmTest {
             dependencies {
