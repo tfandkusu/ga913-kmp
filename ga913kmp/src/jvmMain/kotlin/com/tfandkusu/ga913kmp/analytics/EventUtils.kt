@@ -29,7 +29,6 @@ fun createScreenInstances(): List<KmpAnalyticsEventScreen> {
 fun createActionInstances(): List<KmpAnalyticsEventAction> {
     return KmpAnalyticsEventAction::class.sealedSubclasses.map {
         it.objectInstance ?: createInstance(it)
-            ?: throw RuntimeException("画面内操作イベントクラス作成に失敗しました。")
     }
 }
 
@@ -42,7 +41,7 @@ fun createScreensInActions(): List<KmpAnalyticsEventAction.Screen> {
     }
 }
 
-private fun createInstance(klass: KClass<out KmpAnalyticsEventAction>): KmpAnalyticsEventAction? {
+fun createInstance(klass: KClass<out KmpAnalyticsEventAction>): KmpAnalyticsEventAction {
     val constructor = klass.primaryConstructor
     return if (constructor != null) {
         val parameters =
