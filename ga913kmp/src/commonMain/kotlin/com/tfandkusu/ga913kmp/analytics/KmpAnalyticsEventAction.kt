@@ -21,10 +21,15 @@ sealed class KmpAnalyticsEventAction(
      */
     val isConversionEvent: Boolean,
 ) {
-    /**
-     * ランドマーク一覧画面
-     */
-    object LandmarkList {
+    sealed class Screen(
+        val description: String,
+        val screenName: String,
+    )
+
+    data object LandmarkList : Screen(
+        description = "ランドマーク一覧画面",
+        screenName = "LandmarkList",
+    ) {
         data class FavoritesOnlySwitch(
             /**
              * スイッチの ON/OFF
@@ -32,7 +37,7 @@ sealed class KmpAnalyticsEventAction(
             val favoritesOnly: Boolean,
         ) : KmpAnalyticsEventAction(
                 description = "いいねを付けたランドマークのみを表示するスイッチ",
-                eventName = "LandmarkListFavoritesOnlySwitch",
+                eventName = screenName + "FavoritesOnlySwitch",
                 eventParameters =
                     mapOf(
                         "favorites_only" to favoritesOnly,
@@ -41,10 +46,7 @@ sealed class KmpAnalyticsEventAction(
             )
     }
 
-    /**
-     * ランドマーク詳細画面
-     */
-    object LandmarkDetail {
+    data object LandmarkDetail : Screen(description = "ランドマーク詳細画面", screenName = "LandmarkDetail") {
         data class FavoriteOn(
             /**
              * ランドマークの ID
@@ -56,7 +58,7 @@ sealed class KmpAnalyticsEventAction(
             val name: String,
         ) : KmpAnalyticsEventAction(
                 description = "いいねを付ける",
-                eventName = "LandmarkDetailFavoriteOn",
+                eventName = screenName + "FavoriteOn",
                 eventParameters =
                     mapOf(
                         "id" to id,
@@ -86,18 +88,12 @@ sealed class KmpAnalyticsEventAction(
             )
     }
 
-    /**
-     * 設定画面
-     */
-    object Setting
+    data object Setting : Screen(description = "設定画面", screenName = "Setting")
 
-    /**
-     * 情報画面
-     */
-    object Info {
+    data object Info : Screen(description = "情報画面", screenName = "Info") {
         data object PrivacyPolicy : KmpAnalyticsEventAction(
             description = "プライバシーポリシーを表示する",
-            eventName = "InfoPrivacyPolicy",
+            eventName = screenName + "PrivacyPolicy",
             eventParameters = emptyMap(),
             isConversionEvent = false,
         )
