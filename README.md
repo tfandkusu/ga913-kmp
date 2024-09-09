@@ -33,7 +33,7 @@ dependencyResolutionManagement {
 
 ```app/build.gradle.kts
 dependencies {
-    implementation("com.github.tfandkusu:ga913-kmp:0.0.9")
+    implementation("com.github.tfandkusu:ga913-kmp:0.1.0")
 }
 ```
 
