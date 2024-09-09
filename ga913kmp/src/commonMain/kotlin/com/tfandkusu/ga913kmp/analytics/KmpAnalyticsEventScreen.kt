@@ -5,6 +5,14 @@ package com.tfandkusu.ga913kmp.analytics
  */
 sealed class KmpAnalyticsEventScreen(
     /**
+     * イベント仕様書上の順番
+     */
+    val order: Int,
+    /**
+     * イベント仕様書の説明文
+     */
+    val description: String,
+    /**
      * Analytics イベント名
      */
     val eventName: String,
@@ -13,23 +21,32 @@ sealed class KmpAnalyticsEventScreen(
      */
     val isConversionEvent: Boolean,
 ) {
-    /**
-     * ランドマーク一覧画面
-     */
-    data object LandmarkList : KmpAnalyticsEventScreen("LandmarkList", false)
+    data object LandmarkList : KmpAnalyticsEventScreen(
+        order = 1,
+        description = "ランドマーク一覧画面",
+        eventName = "LandmarkList",
+        isConversionEvent = false,
+    )
 
-    /**
-     * ランドマーク詳細画面
-     */
-    data object LandmarkDetail : KmpAnalyticsEventScreen("LandmarkDetail", false)
+    data object LandmarkDetail :
+        KmpAnalyticsEventScreen(
+            order = 2,
+            description = "ランドマーク詳細画面",
+            eventName = "LandmarkDetail",
+            isConversionEvent = false,
+        )
 
-    /**
-     * 設定画面
-     */
-    data object Setting : KmpAnalyticsEventScreen("Setting", true)
+    data object Setting : KmpAnalyticsEventScreen(
+        order = 3,
+        description = "設定画面",
+        eventName = "Setting",
+        isConversionEvent = true,
+    )
 
-    /**
-     * 情報画面
-     */
-    data object Info : KmpAnalyticsEventScreen("Info", false)
+    data object Info : KmpAnalyticsEventScreen(
+        order = 4,
+        description = "情報画面",
+        eventName = "Info",
+        isConversionEvent = false,
+    )
 }
