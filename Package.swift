@@ -14,7 +14,7 @@ let package = Package(
         .binaryTarget(
             name: "ga913kmp",
             url: "https://github.com/tfandkusu/ga913-kmp/releases/download/0.0.9/ga913kmp.xcframework.zip",
-            checksum: "ba20be1807613c6755d93b712b31b0d669842a09cf07acc61a10dddbf1e14562"
+            checksum: "cd5b43ba02ea964440b0316e158c8e5c2ec3cf7ca6f9dc79a7d0d0da6f9f767e"
         ),
     ]
 )
