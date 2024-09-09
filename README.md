@@ -33,6 +33,19 @@ dependencyResolutionManagement {
 
 ```app/build.gradle.kts
 dependencies {
-    implementation("com.github.tfandkusu:ga913-kmp:0.0.7")
+    implementation("com.github.tfandkusu:ga913-kmp:0.0.9")
 }
 ```
+
+## ライブラリの構成
+
+### イベント仕様を Kotlin で定義する
+
+- [KmpAnalyticsEventScreen](https://github.com/tfandkusu/ga913-kmp/blob/main/ga913kmp/src/commonMain/kotlin/com/tfandkusu/ga913kmp/analytics/KmpAnalyticsEventScreen.kt)
+- [KmpAnalyticsEventAction](https://github.com/tfandkusu/ga913-kmp/blob/main/ga913kmp/src/commonMain/kotlin/com/tfandkusu/ga913kmp/analytics/KmpAnalyticsEventAction.kt)
+
+で定義しています。
+
+### イベント仕様を検証する
+
+JVM の実行時型情報を使い、単体テストとして [AnalyticsEventTest](https://github.com/tfandkusu/ga913-kmp/blob/main/ga913kmp/src/jvmTest/kotlin/com/tfandkusu/ga913kmp/analytics/AnalyticsEventTest.kt) で検証しています。
