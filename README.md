@@ -5,6 +5,11 @@
 アプリ開発者は Kotlin で [Google Analytics for Firebase](https://firebase.google.com/docs/analytics) のイベントの仕様を定義します。
 本リポジトリは Kotlin Multiplatform ライブラリなので iOS / Android アプリから取り込むことが出来ます。
 
+## イベント仕様書
+
+- [画面遷移イベント](https://github.com/tfandkusu/ga913-kmp/blob/main/screens.md)
+- [画面内操作イベント](https://github.com/tfandkusu/ga913-kmp/blob/main/actions.md)
+
 ## ライブラリの使用方法
 
 ### iOS 向け
@@ -33,7 +38,7 @@ dependencyResolutionManagement {
 
 ```app/build.gradle.kts
 dependencies {
-    implementation("com.github.tfandkusu:ga913-kmp:0.0.9")
+    implementation("com.github.tfandkusu:ga913-kmp:0.1.0")
 }
 ```
 

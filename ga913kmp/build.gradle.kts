@@ -4,10 +4,13 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.ktlint)
     `maven-publish`
+    application
 }
 
 kotlin {
-    jvm()
+    jvm {
+        withJava()
+    }
     val xcf = XCFramework()
     listOf(
         iosX64(),
@@ -24,13 +27,19 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
         }
+        jvmMain.dependencies {
+            implementation(libs.kotlin.reflect)
+        }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-            implementation(libs.kotlin.reflect)
         }
         jvmTest {
             dependencies {
             }
         }
     }
+}
+
+application {
+    mainClass.set("com.tfandkusu.ga913kmp.analytics.MainKt")
 }

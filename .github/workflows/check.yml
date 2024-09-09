@@ -8,14 +8,16 @@ on:
       - opened
       - synchronize
       - reopened
+      - ready_for_review
 jobs:
   check:
     runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.draft }}
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.ref }}
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
@@ -25,3 +27,16 @@ jobs:
         run: ./gradlew ktlintCheck
       - name: イベント仕様の検証
         run: ./gradlew jvmTest
+      - name: ドキュメントの生成
+        run: ./gradlew run
+      - name: ファイル移動
+        run: |
+          cp ga913kmp/screens.md ./ && cp ga913kmp/actions.md ./
+      - name: イベント仕様書を PUSH する
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .
+          git commit -m "イベント仕様書の更新"
+          git push origin HEAD
+        continue-on-error: true
